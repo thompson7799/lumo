@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "title": "Live Environment Set-up",
     "description": "4206 - Hoorah/Chase Production: Client Contact & Access Details",
     "note": "This includes the requested customizations as per the client spec document sent by Bill Statham.",
@@ -10,6 +11,7 @@
     "isPinned": true
   },
   {
+    "id": 2,
     "title": "Request For Change",
     "description": "4206 - Hoorah/Chase Production: Client Contact & Access Details",
     "note": "This includes the requested customizations as per the client spec document sent by Bill Statham.",
@@ -20,6 +22,7 @@
     "isPinned": false
   },
   {
+    "id": 3,
     "title": "Post Implementation review",
     "description": "4206 - Hoorah/Chase Production: Client Contact & Access Details",
     "note": "This includes the requested customizations as per the client spec document sent by Bill Statham.",

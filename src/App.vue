@@ -1,48 +1,17 @@
-<script lang="ts">
+<script lang="ts" setup>
+import { ref } from 'vue';
 import Section from "./components/Section.vue";
-import data from "./assets/data.json";
+import dataJson from "./assets/data.json";
+import type { Section as SectionType } from "./types/section";
 
-export default {
-  name: "App",
-  components: {
-    Section,
-  },
-  computed: {
-    data() {
-      return data;
-    },
-  },
-};
+const SectionData = ref<SectionType[]>(dataJson);
 </script>
 
 <template>
-  <table style="min-width: 300px; width: 100%">
-    <colgroup>
-      <col style="min-width: 20px; max-width: 20px; width: 20px" />
-      <col style="width: auto" />
-    </colgroup>
-    <tbody>
-      <tr>
-        <td><i class="fa fa-fw fa-grip-vertical" /></td>
-        <td>
-          <Section v-bind="data[0]" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="min-h-screen min-w-screen bg-gray-50 py-8 px-4 flex justify-center">
+    <div class="max-w-4xl flex flex-col gap-3">
+      <Section v-for="(section, index) in SectionData" :key="section.id" v-model="SectionData[index]" />
+    </div>
+  </div>
 </template>
-
-<style scoped>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  padding: 10px;
-}
-
-table {
-  table-layout: fixed;
-}
-</style>
 

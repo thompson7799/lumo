@@ -1,79 +1,66 @@
-<script lang="ts">
-export default {
-  name: "Section",
-  props: {
-    title: String,
-    description: String,
-    note: String,
-    startDate: String,
-    endDate: String,
-    hours: Number,
-    totalHours: Number,
-    isPinned: Boolean,
-  },
-};
+<script lang="ts" setup>
+import IconButton from './IconButton.vue';
+import { getDateRange, formatHours } from '../utils/dateUtils';
+import type { Section } from '../types/section';
+
+const props = defineProps<{
+  modelValue: Section;
+}>()
+
+const emit = defineEmits<{
+  'update:modelValue': [value: Section]
+}>()
+
+const handlePinClick = () => {
+  const updatedSection = { ...props.modelValue, isPinned: !props.modelValue.isPinned };
+  emit('update:modelValue', updatedSection);
+}
 </script>
 
-<!--
-  1. Add a computed method to format the dates as follows
-    - If start date and end date is the same only, or either is null only show 1 date e.g. 1 Jan
-    - If start date and end date is in the same month only show days and month e.g. 1 - 31 Jan
-    - If start date and end date are in different months, show date and month e.g. 1 Jan - 28 Feb
-
-  2. Add a computed method to format the hours as follows
-    - If hours < 10, show 1 decimal
-    - If hours > 10, dont show decimals
-
-  3. Style according to specification
-
-  4. Make responsive
-
-  5. Show all records & rotate pin if true (class fa-rotate-90)
--->
-
 <template>
-  <table>
-    <colgroup>
-      <col style="width: 100%" />
-      <col style="min-width: 60px; width: 60px" />
-    </colgroup>
-    <tbody>
-      <tr>
-        <td class="title">
-          <i class="fa fa-fw fa-thumbtack"></i>
-          {{ title }}
-        </td>
-        <td class="actions" rowspan="2">
-          <i class="fa fa-check-circle"></i>
-          <i class="fa fa-play-circle"></i>
-        </td>
-      </tr>
-      <tr>
-        <td class="description">{{ description }}</td>
-      </tr>
-      <tr>
-        <td>
-          <div class="note">
-            <span>{{ note }}</span>
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div class="flex gap-4">
+      <div class="content-center">
+        <i class="fa fa-fw fa-grip-vertical text-lg text-gray-400" />
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
+          <div class="flex items-center gap-2 flex-1 min-w-0">
+            <i
+              :class="[
+                'fa fa-fw flex-none cursor-pointer transition-all duration-200 hover:scale-110',
+                modelValue.isPinned
+                  ? 'fa-thumbtack text-orange-500 transform rotate-45'
+                  : 'far fa-thumbtack text-gray-400 hover:text-orange-400'
+              ]"
+              @click="handlePinClick"
+            ></i>
+            <p class="text-xl sm:text-2xl font-semibold text-gray-900 truncate">{{ modelValue.title }}</p>
           </div>
-          <div class="date">
-            <span> {{ startDate }} - {{ endDate }} </span>
+          <div class="flex-none flex gap-2">
+            <IconButton size="sm" bg-color="bg-emerald-400" icon-class="fa fa-check" />
+            <IconButton size="sm" bg-color="bg-blue-400" icon-class="fa fa-play" />
           </div>
-        </td>
-        <td>{{ hours }} of {{ totalHours }}h</td>
-      </tr>
-    </tbody>
-  </table>
+        </div>
+        <div class="mb-4">
+          <p class="text-gray-600">{{ modelValue.description }}</p>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+          <div class="flex-1 min-w-0">
+            <p class="text-gray-600 text-sm truncate">{{ modelValue.note }}</p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 sm:flex-shrink-0">
+            <div class="flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full">
+              <i class="fa fa-calendar text-blue-500 text-xs"></i>
+              <span class="text-sm font-medium text-blue-700 whitespace-nowrap">{{ getDateRange(modelValue.startDate, modelValue.endDate) }}</span>
+            </div>
+            <div class="flex items-center gap-2 bg-emerald-50 px-3 py-1 rounded-full">
+              <i class="fa fa-clock text-emerald-500 text-xs"></i>
+              <span class="text-sm font-medium text-emerald-700 whitespace-nowrap">{{ formatHours(modelValue.hours) }} of {{ formatHours(modelValue.totalHours) }}h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
-
-
-
-<style scoped>
-.note {
-  float: left;
-}
-
-.date {
-  float: right;
-}
-</style>
