@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import IconButton from './IconButton.vue'
+import IconButton from './ui/IconButton.vue'
 import { getDateRange, formatHours } from '@/utils/dateUtils'
 import type { Section } from '@/types/section'
 
