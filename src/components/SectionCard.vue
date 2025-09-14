@@ -45,15 +45,15 @@ const handlePinClick = () => {
           </div>
         </div>
 
-        <div class="text-gray-600 text-sm sm:text-base leading-relaxed break-words">
+        <div class="text-gray-600 text-sm sm:text-base leading-relaxed break-words pt-2 sm:pt-0">
           {{ section.description }}
         </div>
 
-        <div class="flex flex-col gap-3">
-          <div class="w-full">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
+          <div class="flex-1 min-w-0">
             <p class="text-gray-600 text-xs sm:text-sm truncate">{{ section.note }}</p>
           </div>
-          <div class="flex flex-col xs:flex-row gap-2 xs:justify-end">
+          <div class="flex flex-row gap-2 sm:gap-3 sm:flex-shrink-0">
             <div class="flex items-center gap-1 sm:gap-2 bg-blue-50 px-2 sm:px-3 py-1 rounded-full w-fit">
               <i class="fa fa-calendar text-blue-500 text-xs flex-shrink-0"></i>
               <span class="text-xs sm:text-sm font-medium text-blue-700 whitespace-nowrap">
