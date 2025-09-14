@@ -17,13 +17,14 @@ const handlePinClick = () => {
 </script>
 
 <template>
-  <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-    <div class="flex gap-4">
-      <div class="content-center">
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 md:p-6">
+    <div class="flex flex-col md:flex-row gap-3 md:gap-4">
+      <div class="hidden md:flex md:items-center md:flex-shrink-0">
         <i class="fa fa-fw fa-grip-vertical text-lg text-gray-400" />
       </div>
-      <div class="flex-1 min-w-0">
-        <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
+
+      <div class="flex-1 min-w-0 space-y-4">
+        <div class="flex items-start gap-3 sm:gap-4">
           <div class="flex items-center gap-2 flex-1 min-w-0">
             <i
               :class="[
@@ -34,28 +35,36 @@ const handlePinClick = () => {
               ]"
               @click="handlePinClick"
             ></i>
-            <p class="text-xl sm:text-2xl font-semibold text-gray-900 truncate">{{ section.title }}</p>
+            <h3 class="text-lg xs:text-xl sm:text-2xl font-semibold text-gray-900 truncate">
+              {{ section.title }}
+            </h3>
           </div>
-          <div class="flex-none flex gap-2">
+          <div class="flex gap-2 flex-shrink-0">
             <IconButton size="sm" bg-color="bg-emerald-400" icon-class="fa fa-check" />
             <IconButton size="sm" bg-color="bg-blue-400" icon-class="fa fa-play" />
           </div>
         </div>
-        <div class="mb-4">
-          <p class="text-gray-600">{{ section.description }}</p>
+
+        <div class="text-gray-600 text-sm sm:text-base leading-relaxed break-words">
+          {{ section.description }}
         </div>
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
-          <div class="flex-1 min-w-0">
-            <p class="text-gray-600 text-sm truncate">{{ section.note }}</p>
+
+        <div class="flex flex-col gap-3">
+          <div class="w-full">
+            <p class="text-gray-600 text-xs sm:text-sm truncate">{{ section.note }}</p>
           </div>
-          <div class="flex flex-col sm:flex-row gap-3 sm:flex-shrink-0">
-            <div class="flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full">
-              <i class="fa fa-calendar text-blue-500 text-xs"></i>
-              <span class="text-sm font-medium text-blue-700 whitespace-nowrap">{{ getDateRange(section.startDate, section.endDate) }}</span>
+          <div class="flex flex-col xs:flex-row gap-2 xs:justify-end">
+            <div class="flex items-center gap-1 sm:gap-2 bg-blue-50 px-2 sm:px-3 py-1 rounded-full w-fit">
+              <i class="fa fa-calendar text-blue-500 text-xs flex-shrink-0"></i>
+              <span class="text-xs sm:text-sm font-medium text-blue-700 whitespace-nowrap">
+                {{ getDateRange(section.startDate, section.endDate) }}
+              </span>
             </div>
-            <div class="flex items-center gap-2 bg-emerald-50 px-3 py-1 rounded-full">
-              <i class="fa fa-clock text-emerald-500 text-xs"></i>
-              <span class="text-sm font-medium text-emerald-700 whitespace-nowrap">{{ formatHours(section.hours) }} of {{ formatHours(section.totalHours) }}h</span>
+            <div class="flex items-center gap-1 sm:gap-2 bg-emerald-50 px-2 sm:px-3 py-1 rounded-full w-fit">
+              <i class="fa fa-clock text-emerald-500 text-xs flex-shrink-0"></i>
+              <span class="text-xs sm:text-sm font-medium text-emerald-700 whitespace-nowrap">
+                {{ formatHours(section.hours) }} of {{ formatHours(section.totalHours) }}h
+              </span>
             </div>
           </div>
         </div>
